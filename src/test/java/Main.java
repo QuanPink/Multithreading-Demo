@@ -1,5 +1,3 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 import java.awt.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,8 +12,6 @@ public class Main {
     public static void main(String[] args) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = (int) screenSize.getWidth();
-
-        WebDriverManager.chromedriver().setup();
 
         try (ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_TABS)) {
             int position = 0;

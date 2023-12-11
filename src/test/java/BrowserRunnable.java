@@ -3,7 +3,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
 public class BrowserRunnable implements Runnable {
@@ -35,16 +34,15 @@ public class BrowserRunnable implements Runnable {
             Actions action = new Actions(driver);
 
             action.sendKeys(Keys.ENTER).build().perform();
-Thread.sleep(3000);
+            Thread.sleep(3000);
             driver.findElement(By.xpath("(//h3)[1]")).click();
 
-            // Perform browser actions here
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-//            if (driver != null) {
-//                driver.quit();
-//            }
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 }
