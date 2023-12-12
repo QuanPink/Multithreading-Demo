@@ -2,7 +2,7 @@
 <suite name="ParallelTests">
     <test name="Test1">
         <classes>
-            <class name="Main"/>
+            <class name="BrowserManager"/>
         </classes>
     </test>
 </suite>

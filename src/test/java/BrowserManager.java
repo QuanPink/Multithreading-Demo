@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main {
-    private static final int NUMBER_OF_TABS = 50;
+public class BrowserManager {
+    private static final int NUMBER_OF_TABS = 20;
     private static final int TAB_WIDTH = 200;
     private static final int TAB_HEIGHT = 600;
     private static final int POSITION_INCREMENT = 500;
@@ -24,22 +24,7 @@ public class Main {
                 if (position + TAB_WIDTH > screenWidth) {
                     position = 0;
                     switch (row) {
-                        case 0:
-                            row += ROW_INCREMENT;
-                            break;
-                        case 200:
-                            row += ROW_INCREMENT;
-                            break;
-                        case 400:
-                            row += ROW_INCREMENT;
-                            break;
-                        case 600:
-                            row += ROW_INCREMENT;
-                            break;
-                        case 800:
-                            row += ROW_INCREMENT;
-                            break;
-                        case 1000:
+                        case 0, 200, 400, 600, 800, 1000:
                             row += ROW_INCREMENT;
                             break;
                     }
