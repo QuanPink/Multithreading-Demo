@@ -1,3 +1,5 @@
+package setup;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -34,6 +36,7 @@ public class BrowserRunnable implements Runnable {
                 // Set the size and position of the window
                 driver.manage().window().setSize(new org.openqa.selenium.Dimension(width, height));
                 driver.manage().window().setPosition(new org.openqa.selenium.Point(position, row));
+
 
                 driver.get("https://www.google.com/?hl=vi");
                 driver.findElement(By.xpath("//textarea[@type = 'search']")).sendKeys("cháo");
