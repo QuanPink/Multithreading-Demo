@@ -3,11 +3,10 @@ package setup;
 import java.awt.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 
 public class BrowserManager {
-    private static final int NUMBER_OF_TABS = 5;
-    protected static final int BROWSER_LIMIT = 8;
+    private static final int NUMBER_OF_TABS = 10;
+    protected static final int BROWSER_LIMIT = 50;
     private static final int TAB_WIDTH = 200;
     private static final int TAB_HEIGHT = 600;
     private static final int POSITION_INCREMENT = 500;
@@ -20,17 +19,15 @@ public class BrowserManager {
 
         // Create a thread pool with the number of threads equal to the number of tabs to open
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_TABS);
-
-        Semaphore semaphore = new Semaphore(BROWSER_LIMIT);
         try {
-            for (int i = 0; i < NUMBER_OF_TABS; i++) {
+            for (int i = 0; i < BROWSER_LIMIT; i++) {
 
                 // Calculate tab position
                 int position = (i % (screenWidth / POSITION_INCREMENT)) * POSITION_INCREMENT;
                 int row = (i / (screenWidth / POSITION_INCREMENT)) * ROW_INCREMENT;
 
                 // Create a Runnable to open the tab
-                BrowserRunnable browserRunnable = new BrowserRunnable(semaphore, TAB_WIDTH, TAB_HEIGHT, position, row);
+                BrowserRunnable browserRunnable = new BrowserRunnable(TAB_WIDTH, TAB_HEIGHT, position, row);
                 // Send the Runnable to the thread pool for execution
                 executorService.submit(browserRunnable);
             }
