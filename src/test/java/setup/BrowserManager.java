@@ -6,10 +6,11 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 public class BrowserManager {
-    private static final int NUMBER_OF_TABS = 5;
-    protected static final int BROWSER_LIMIT = 11;
+    private static final int NUMBER_OF_TABS = 10;
+    protected static final int BROWSER_LIMIT = 50;
     private static final int TAB_WIDTH = 200;
     private static final int TAB_HEIGHT = 600;
     private static final int POSITION_INCREMENT = 500;
@@ -27,8 +28,7 @@ public class BrowserManager {
         List<String[]> accounts = csvReader.readCsvFile("src/test/java/resources/Book1.csv");
 
         // Create a thread pool with the number of threads equal to the number of tabs to open
-        ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_TABS);
-        try {
+        try (ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_TABS)) {
             for (int i = 0; i < BROWSER_LIMIT; i++) {
                 // If index is out of bounds, reset it to 0
                 if (accountIndex >= accounts.size()) {
@@ -44,6 +44,11 @@ public class BrowserManager {
                 int position = (i % (screenWidth / POSITION_INCREMENT)) * POSITION_INCREMENT;
                 int row = (i / (screenWidth / POSITION_INCREMENT)) * ROW_INCREMENT;
 
+                // Check if the row exceeds the screen height
+                if (row + TAB_HEIGHT > screenHeight) {
+                    row = 0;
+                }
+
                 // Create a Runnable to open the tab
                 BrowserRunnable browserRunnable = new BrowserRunnable(TAB_WIDTH, TAB_HEIGHT, position, row, username, password);
                 // Send the Runnable to the thread pool for execution
@@ -53,10 +58,8 @@ public class BrowserManager {
                 accountIndex++;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Ensure that the thread pool is turned off after all tasks have completed
-            executorService.shutdown();
+            Logger logger = Logger.getLogger(BrowserManager.class.getName());
+            logger.severe("Error in BrowserManager: " + e.getMessage());
         }
     }
 }
