@@ -12,12 +12,16 @@ public class BrowserRunnable implements Runnable {
     private final int height;
     private final int position;
     private final int row;
+    private final String username;
+    private final String password;
 
-    public BrowserRunnable(int width, int height, int position, int row) {
+    public BrowserRunnable(int width, int height, int position, int row, String username, String password) {
         this.width = width;
         this.height = height;
         this.position = position;
         this.row = row;
+        this.username = username;
+        this.password = password;
     }
 
     @Override
@@ -32,11 +36,10 @@ public class BrowserRunnable implements Runnable {
             driver.manage().window().setPosition(new org.openqa.selenium.Point(position, row));
 
             driver.get("https://www.google.com/?hl=vi");
-            driver.findElement(By.xpath("//textarea[@type = 'search']")).sendKeys("cháo");
+            driver.findElement(By.xpath("//textarea[@type = 'search']")).sendKeys(username);
             Actions action = new Actions(driver);
 
             action.sendKeys(Keys.ENTER).build().perform();
-            driver.findElement(By.xpath("(//h3)[1]")).click();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
