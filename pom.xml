@@ -36,11 +36,6 @@
             <version>7.8.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.8</version>
-        </dependency>
     </dependencies>
 
 </project>
